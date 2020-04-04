@@ -10,7 +10,7 @@ CGame::CGame()
 	m_pSpriteBackground = NULL;
 	m_pSpriteMenu = NULL;
 	m_pCurrentBackground = NULL;
-
+	menu = true;
 } // Konstruktor
 
 
@@ -103,68 +103,72 @@ void CGame::handleEvent(SDL_Event* e)
 	SDL_GetMouseState(&x, &y);
 
 	//Check if mouse is in button
-	bool insideExit = true;
-	bool insideStart = true;
-	printf("x: %i\n", x);
-	printf("y: %i\n", y);
+	if (menu) {
+		bool insideExit = true;
+		bool insideStart = true;
+		printf("x: %i\n", x);
+		printf("y: %i\n", y);
 
 
-	//Mouse is left of the button
-	if (x < butEndX)
-	{
-		printf("left\n");
-		insideExit = false;
-	}
-	//Mouse is right of the button
-	else if (x > butEndX + BUTTON_WIDTH)
-	{
-		printf("right\n");
-		insideExit = false;
-	}
-	//Mouse above the button
-	else if (y < butEndY)
-	{
-		printf("above\n");
-		insideExit = false;
-	}
-	//Mouse below the button
-	else if (y > butEndY + BUTTON_HEIGHT)
-	{
-		printf("below\n");
-		insideExit = false;
-	}
-	//Mouse is left of the button
-	if (x < butStartX)
-	{
-		printf("left\n");
-		insideStart = false;
-	}
-	//Mouse is right of the button
-	else if (x > butStartX + BUTTON_WIDTH)
-	{
-		printf("right\n");
-		insideStart = false;
-	}
-	//Mouse above the button
-	else if (y < butStartY)
-	{
-		printf("above\n");
-		insideStart = false;
-	}
-	//Mouse below the button
-	else if (y > butStartY + BUTTON_HEIGHT)
-	{
-		printf("below\n");
-		insideStart = false;
-	}
+		//Mouse is left of the button
+		if (x < butEndX)
+		{
+			printf("left\n");
+			insideExit = false;
+		}
+		//Mouse is right of the button
+		else if (x > butEndX + BUTTON_WIDTH)
+		{
+			printf("right\n");
+			insideExit = false;
+		}
+		//Mouse above the button
+		else if (y < butEndY)
+		{
+			printf("above\n");
+			insideExit = false;
+		}
+		//Mouse below the button
+		else if (y > butEndY + BUTTON_HEIGHT)
+		{
+			printf("below\n");
+			insideExit = false;
+		}
+		//Mouse is left of the button
+		if (x < butStartX)
+		{
+			printf("left\n");
+			insideStart = false;
+		}
+		//Mouse is right of the button
+		else if (x > butStartX + BUTTON_WIDTH)
+		{
+			printf("right\n");
+			insideStart = false;
+		}
+		//Mouse above the button
+		else if (y < butStartY)
+		{
+			printf("above\n");
+			insideStart = false;
+		}
+		//Mouse below the button
+		else if (y > butStartY + BUTTON_HEIGHT)
+		{
+			printf("below\n");
+			insideStart = false;
+		}
 
-	if (insideExit) {
-		m_bGameRun = false;
-	}
-	if (insideStart) {
-		m_pCurrentBackground = m_pSpriteBackground;
-	}
+		if (insideExit) {
+			m_bGameRun = false;
+		}
+		if (insideStart) {
+			menu = false;
+			m_pCurrentBackground = m_pSpriteBackground;
+		}
 
+
+	}
 }
 
 
@@ -200,7 +204,11 @@ void CGame::ProcessEvents()
 				m_bGameRun = false;
 
 			} break;
-
+			case (SDLK_m):
+			{
+				m_pCurrentBackground = m_pSpriteMenu;
+				menu = true;
+			}break;
 			default:
 				break;
 			}

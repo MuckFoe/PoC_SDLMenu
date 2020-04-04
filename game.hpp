@@ -16,6 +16,7 @@ private:
 	void ProcessEvents();
 	void handleEvent(SDL_Event*);
 
+	bool menu;
 	CSprite *m_pSpriteBackground;   // Sprite für den Hintergrund
 	CSprite *m_pSpriteMenu;
 	CSprite *m_pCurrentBackground;
